@@ -1,6 +1,7 @@
 package com.prs.web;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class LineItemController {
 	 * 5) DELETE - delete
 	 */
 @Autowired   			//Wires database to your controller
-	private LineItem lineItemRepo;
+	private LineItemRepo lineItemRepo;
 
 // GET ALL LineItems
 @GetMapping("/")

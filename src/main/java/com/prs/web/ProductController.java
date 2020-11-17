@@ -19,9 +19,9 @@ import org.springframework.web.server.ResponseStatusException;
 import com.prs.business.*;
 import com.prs.db.*;
 
-@CrossOrigin // Security related
-@RestController // I am a Controller!
-@RequestMapping("/product") // url search
+@CrossOrigin 									// Security related
+@RestController 								// I am a Controller!
+@RequestMapping("/product") 	// url search
 
 public class ProductController {
 	/*

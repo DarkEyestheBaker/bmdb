@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prs.db.*;
-import com.prs.business.Request;
+import com.prs.business.*;
 
 @CrossOrigin           // Security related
 @RestController      // I am a Controller!
@@ -31,10 +31,10 @@ public class RequestController {
 	 */
 	@Autowired       // Wires database to your controller
 	private RequestRepo requestRepo;
-	
+		
 //	GET ALL Requests
 	@GetMapping("/")
-	public List<Request> getAll() {
+	public List<Request> getAll(@PathVariable int id, String login, String status) {
 		return requestRepo.findAll();
 	}
 	

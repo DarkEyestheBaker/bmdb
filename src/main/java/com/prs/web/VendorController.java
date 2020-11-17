@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.prs.business.Product;
 import com.prs.business.Vendor;
 import com.prs.db.VendorRepo;
 
@@ -34,6 +33,7 @@ public class VendorController {
 	 * 5) DELETE - delete
 	 */
 	@Autowired   			//Wires database to your controller
+	private VendorRepo vendorRepo;
 	private List<Vendor> getAll() {
 		return vendorRepo.findAll();
 	}
@@ -51,13 +51,13 @@ public class VendorController {
 	}
 	// UPDATE a Product
 	@PutMapping("/")
-	public Product updateMovie(@RequestBody Product p) {
+	public Vendor updateVendor(@RequestBody Vendor v) {
 		v = vendorRepo.save(v);
-		return p;
+		return v;
 	}
 	// DELETE Product by ID
 	@DeleteMapping("/{id}")
-	public Vendor deleteVendort(@PathVariable int id) {
+	public Vendor deleteVendor(@PathVariable int id) {
 		Optional<Vendor> v = vendorRepo.findById(id);
 			if (v.isPresent()) {
 				vendorRepo.deleteById(id);
@@ -69,4 +69,4 @@ public class VendorController {
 }
 
 
-}
+
