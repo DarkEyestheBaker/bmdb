@@ -73,7 +73,7 @@ public User addUser(@RequestBody User u) {
 	// login via POST
 	@PostMapping("/login")
 	public Optional<User> login(@RequestBody User u) {
-		Optional<User> user = userRepo.findByUsernameAndPassword(u.getUsername(), u.getPassword());
+		Optional<User> user = userRepo.findByUserNameAndPassword(u.getUserName(), u.getPassword());
 		if (user.isPresent()) {
 			return user;
 		}
