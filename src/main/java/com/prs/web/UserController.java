@@ -22,7 +22,7 @@ import com.prs.db.*;
 
 @CrossOrigin 									// Security related
 @RestController 								// I am a Controller!
-@RequestMapping("/login") 			// url search
+@RequestMapping("/users") 			// url search
 
 public class UserController {
 	/*
@@ -36,16 +36,10 @@ public class UserController {
 	@Autowired   			//Wires database to your controller
 	private UserRepo userRepo;
 	
-	// login via GET with request params
-	@GetMapping("/login")
-	public Optional<User> login(@RequestParam String username, 
-					  @RequestParam String password) {
-		Optional<User> u = userRepo.findByUsernameAndPassword(username, password);
-		if (u.isPresent()) {
-			return u;
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-		}
+	// GET ALL Users
+	@GetMapping("/")
+	public List<User> getAllUsers() {
+		return userRepo.findAll();
 	}
 	//ADD a User
 	@PostMapping("/")
@@ -66,6 +60,7 @@ public User addUser(@RequestBody User u) {
 	public User deleteUser(@PathVariable int id) {
 		// Optional type will wrap a user
 		Optional<User> u = userRepo.findById(id);
+		
 		// isPresent will return true if a user was found
 		if (u.isPresent()) {
 		userRepo.deleteById(id);

@@ -1,20 +1,24 @@
 package com.prs.business;
 
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private String email;		
-		
+	private String email;
+	private boolean isAdmin;
+	private boolean isReviewer;
+
 	public User() {
 		super();
 	}
@@ -29,6 +33,8 @@ public class User {
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.isAdmin = isAdmin;
+		this.isReviewer = isReviewer;
 	}
 
 	public int getId() {
@@ -87,4 +93,12 @@ public class User {
 		this.email = email;
 	}
 
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public void setReviewer(boolean isReviewer) {
+		this.isReviewer = isReviewer;
+
+	}
 }
