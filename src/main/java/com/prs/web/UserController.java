@@ -39,8 +39,14 @@ public class UserController {
 	// GET ALL Users
 	@GetMapping("/")
 	public List<User> getAllUsers() {
-		return userRepo.findAll();
+		return userRepo.findAll();	
 	}
+	//Get user by ID
+	@GetMapping("/{id}")
+	public Optional<User> getUserById(@PathVariable int id) {
+		return userRepo.findById(id);
+	}
+	
 	//ADD a User
 	@PostMapping("/")
 public User addUser(@RequestBody User u) {

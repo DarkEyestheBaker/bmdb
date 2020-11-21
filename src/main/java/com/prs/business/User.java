@@ -22,8 +22,8 @@ public class User {
 		super();
 	}
 
-	public User(int id, String username, String password, String firstName, String lastName, String phoneNumber,
-			String email) {
+	public User(int id, String userName, String password, String firstName, String lastName, String phoneNumber,
+			String email, boolean isAdmin, boolean isReviewer) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -92,12 +92,19 @@ public class User {
 		this.email = email;
 	}
 
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
+	public boolean isReviewer() {
+		return isReviewer;
+	}
+
 	public void setReviewer(boolean isReviewer) {
 		this.isReviewer = isReviewer;
-
 	}
 }
