@@ -1,5 +1,7 @@
 package com.prs.business;
 
+import com.prs.*;
+
 import java.util.*;
 
 import javax.persistence.*;

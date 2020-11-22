@@ -1,5 +1,7 @@
 package com.prs.web;
 
+import com.prs.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -42,19 +44,24 @@ public List<LineItem>getAllLineItems() {
 				return lineItemRepo.findById(id);
 	}
 	
-	//ADD LineItem
+	//ADD LineItem and recalculate total
 	@PostMapping("/")
 	public LineItem addLineItem(@RequestBody LineItem li) {
 		li = lineItemRepo.save (li);
+		recalculateTotal(li);
 		return li;
 	}
-	// UPDATE a LineItem
+	private void recalculateTotal(LineItem li) {
+		
+	}
+
+	// PUT (update) a LineItem and recalculate
 	@PutMapping("/")
 	public LineItem updateLineItem(@RequestBody LineItem li) {
 		li = lineItemRepo.save(li);
 		return li;
 	}
-	// DELETE LineItem by ID
+	// DELETE LineItem by ID and recalculate
 	@DeleteMapping("/{id}")
 	public LineItem deleteLineItem(@PathVariable int id) {
 		Optional<LineItem> li = lineItemRepo.findById(id);
