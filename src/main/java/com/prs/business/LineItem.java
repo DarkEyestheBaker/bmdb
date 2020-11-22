@@ -11,18 +11,18 @@ public class LineItem {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int requestId;
-	private int productId;
+	private int requestID;
+	private int productID;
 	private int quantity;
 
 	private LineItem() {
 		super();
 }
-public LineItem(int id, int requestId, int productId, int quantity) {
+public LineItem(int id, int requestID, int productID, int quantity) {
 	super();
-	this.requestId = id;
-	this.requestId = requestId;
-	this.productId = productId;
+	this.requestID = id;
+	this.requestID = requestID;
+	this.productID = productID;
 	this.quantity = quantity;
 }
 public int getId() {
@@ -32,16 +32,16 @@ public void setId(int id) {
 	this.id = id;
 }
 public int getRequestId() {
-	return requestId;
+	return requestID;
 }
 public void setRequestId(int requestId) {
-	this.requestId = requestId;
+	this.requestID = requestId;
 }
 public int getProductId() {
-	return productId;
+	return productID;
 }
 public void setProductId(int productId) {
-	this.productId = productId;
+	this.productID = productId;
 }
 public int getQuantity() {
 	return quantity;
