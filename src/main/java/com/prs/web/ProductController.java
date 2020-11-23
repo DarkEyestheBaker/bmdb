@@ -53,7 +53,7 @@ public List<Product>getAllProducts() {
 		p = productRepo.save (p);
 		return p;
 	}
-	// UPDATE a Product
+	// PUT/UPDATE a Product
 	@PutMapping("/")
 	public Product updateProduct(@RequestBody Product p) {
 		p = productRepo.save(p);
