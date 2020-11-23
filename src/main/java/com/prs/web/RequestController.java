@@ -36,7 +36,7 @@ public class RequestController {
 	private RequestRepo requestRepo;
 	
 // GET ALL Requests
-@GetMapping("/requests")
+@GetMapping("/")
 public List<Request>getAllRequests() {
 	return requestRepo.findAll();
 }
@@ -47,7 +47,7 @@ public List<Request>getAllRequests() {
 				return requestRepo.findById(id);
 	}
 	
-	//ADD Request
+	//POST/ADD Request
 	@PostMapping("/")
 	public Request addRequest(@RequestBody Request r) {
 		r = requestRepo.save (r);

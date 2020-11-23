@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.prs.business.Vendor;
-import com.prs.db.VendorRepo;
+import com.prs.business.*;
+import com.prs.db.*;
 
 @CrossOrigin 									// Security related
 @RestController 								// I am a Controller!

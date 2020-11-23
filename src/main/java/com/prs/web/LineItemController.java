@@ -38,7 +38,7 @@ public class LineItemController {
 	private LineItemRepo lineItemRepo;
 	
 // GET ALL LineItems
-@GetMapping("/lineitems")
+@GetMapping("/")
 public List<LineItem>getAllLineItems() {
 	return lineItemRepo.findAll();
 }
