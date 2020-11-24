@@ -1,6 +1,7 @@
 package com.prs.business;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.persistence.*;
@@ -10,6 +11,9 @@ public class Request {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@ManyToOne
+	@JoinColumn(name = "UserId")
+	private User user;
 	private int userID;
 	private String description;
 	private String justification;
@@ -17,16 +21,17 @@ public class Request {
 	private String deliveryMode;
 	private String status;
 	private double total;
-	private LocalDate submittedDate;
+	private LocalDateTime submittedDate;
 	private String reasonForRejection;
 	
-	private Request() {
-		super();
+	public Request() {
+		status = "new";
+		submittedDate = java.time.LocalDateTime.now();
 		
 	}
 
 	public Request(int id, int userID, String description, String justification, LocalDate dateNeeded,
-			String deliveryMode, String status, double total, LocalDate submittedDate, String reasonForRejection) {
+			String deliveryMode, String status, double total, LocalDateTime submittedDate, String reasonForRejection) {
 		super();
 		this.id = id;
 		this.userID = userID;
@@ -46,6 +51,14 @@ public class Request {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getUserID() {
@@ -104,11 +117,11 @@ public class Request {
 		this.total = total;
 	}
 
-	public LocalDate getSubmittedDate() {
+	public LocalDateTime getSubmittedDate() {
 		return submittedDate;
 	}
 
-	public void setSubmittedDate(LocalDate submittedDate) {
+	public void setSubmittedDate(LocalDateTime submittedDate) {
 		this.submittedDate = submittedDate;
 	}
 

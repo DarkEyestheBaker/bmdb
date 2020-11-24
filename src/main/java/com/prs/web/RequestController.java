@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.prs.business.*;
-import com.prs.db.*;
+import com.prs.business.Request;
+import com.prs.db.RequestRepo;
 
-@CrossOrigin 									// Security related
-@RestController 								// I am a Controller!
-@RequestMapping("/requests") 	// url search
+@CrossOrigin // Security related
+@RestController // I am a Controller!
+@RequestMapping("/requests") // url search
 
 public class RequestController {
+
 	/*
 	 * A controller will implement 5 CRUD methods (Test in this order): 
 	 * 1) GET ALL
@@ -32,29 +33,42 @@ public class RequestController {
 	 * 4) PUT - Update 
 	 * 5) DELETE - delete
 	 */
-	@Autowired   			//Wires database to your controller
+	@Autowired // Wires database to your controller
 	private RequestRepo requestRepo;
-	
+
 // GET ALL Requests
-@GetMapping("/")
-public List<Request>getAllRequests() {
-	return requestRepo.findAll();
-}
-	
-	//GET Request by ID
-	@GetMapping("/{id}")
-	public Optional<Request>getbyId(@PathVariable int id) {
-				return requestRepo.findById(id);
+	@GetMapping("/")
+	public List<Request> getAllRequests() {
+		return requestRepo.findAll();
 	}
-	
-	//POST/ADD Request
+
+	// GET Request by ID
+	@GetMapping("/{id}")
+	public Optional<Request> getRequestById(@PathVariable int id) {
+		return requestRepo.findById(id);
+	}
+
+	// Review requests by ID
+	@GetMapping("/requests/review/{id}")
+	public List<Request> getRequestByIdAndStatus(@PathVariable int id) {
+		return requestRepo.findByUserIdNotandStatus(id, "Review");
+	}
+
+	// POST (Add) Request
 	@PostMapping("/")
 	public Request addRequest(@RequestBody Request r) {
-		r = requestRepo.save (r);
-		return r;
+		if (r != null) {
+			System.out.println("Request submitted successfully.");
+			System.out.println("Total price = " + r.getTotal());
+			return requestRepo.save(r);
+		} else {
+			System.out.println("No request submitted.");
+			return null;
+		}
 	}
+
 	private void recalculateTotal(Request r) {
-		
+
 	}
 
 	// PUT (update) a Request and recalculate
@@ -63,15 +77,24 @@ public List<Request>getAllRequests() {
 		r = requestRepo.save(r);
 		return r;
 	}
-	// DELETE Request by ID 
+
+	// DELETE Request by ID
 	@DeleteMapping("/{id}")
 	public Request deleteRequest(@PathVariable int id) {
 		Optional<Request> r = requestRepo.findById(id);
-			if (r.isPresent()) {
-				requestRepo.deleteById(id);
-			}else {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found.");
-}
-			return r.get();
-}
+		if (r.isPresent()) {
+			requestRepo.deleteById(id);
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found.");
+		}
+		return r.get();
+	}
+
+	// Approve Request
+	@PutMapping("/approve")
+	public Request approveRequest(@RequestBody Request r) {
+		r.setStatus("Approved");
+		r = requestRepo.save(r);
+		return r;
+	}
 }
