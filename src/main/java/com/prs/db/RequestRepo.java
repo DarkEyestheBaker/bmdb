@@ -9,6 +9,6 @@ import com.prs.business.Request;
 
 public interface RequestRepo extends JpaRepository<Request, Integer> {
 
-	List<Request> findByUserIdNotandStatus(int id, String string);
+	List<Request> findAllById(int id);
 
 }

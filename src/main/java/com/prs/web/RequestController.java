@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.prs.business.Request;
-import com.prs.db.RequestRepo;
+import com.prs.business.*;
+import com.prs.db.*;
+
 
 @CrossOrigin // Security related
 @RestController // I am a Controller!
@@ -34,6 +36,7 @@ public class RequestController {
 	 * 5) DELETE - delete
 	 */
 	@Autowired // Wires database to your controller
+	@Qualifier("isReviewer")
 	private RequestRepo requestRepo;
 
 // GET ALL Requests
@@ -51,7 +54,7 @@ public class RequestController {
 	// Review requests by ID
 	@GetMapping("/requests/review/{id}")
 	public List<Request> getRequestByIdAndStatus(@PathVariable int id) {
-		return requestRepo.findByUserIdNotandStatus(id, "Review");
+		return  requestRepo.findAllById(id) ;
 	}
 
 	// POST (Add) Request
