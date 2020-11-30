@@ -36,7 +36,6 @@ public class RequestController {
 	 * 5) DELETE - delete
 	 */
 	@Autowired // Wires database to your controller
-	@Qualifier("isReviewer")
 	private RequestRepo requestRepo;
 
 // GET ALL Requests
@@ -48,6 +47,7 @@ public class RequestController {
 	// GET Request by ID
 	@GetMapping("/{id}")
 	public Optional<Request> getRequestById(@PathVariable int id) {
+	
 		return requestRepo.findById(id);
 	}
 
@@ -92,11 +92,30 @@ public class RequestController {
 		}
 		return r.get();
 	}
+	// Auto-Approve under $50
+	@PutMapping("/review")
+			public Request setRequestsApproval(@RequestBody Request r) {
+		if(r.getTotal() >= 50.00) {
+			r.setStatus("Review");
+		}else {
+			r.setStatus("Approved");
+		}
+		r.setSubmittedDate(java.time.LocalDateTime.now());
+		r = requestRepo.save(r);
+		return r;
+	}
 
-	// Approve Request
+	// Approve Request over $50
 	@PutMapping("/approve")
 	public Request approveRequest(@RequestBody Request r) {
 		r.setStatus("Approved");
+		r = requestRepo.save(r);
+		return r;
+	}
+	// Rejected request
+	@PutMapping("/reject")
+			public Request rejectRequest(@RequestBody Request r) {
+		r.setStatus("Rejected");
 		r = requestRepo.save(r);
 		return r;
 	}
