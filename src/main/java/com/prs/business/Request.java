@@ -14,7 +14,6 @@ public class Request {
 	@ManyToOne
 	@JoinColumn(name = "UserId")
 	private User user;
-	private int userID;
 	private String description;
 	private String justification;
 	private LocalDate dateNeeded;
@@ -34,7 +33,6 @@ public class Request {
 			String deliveryMode, String status, double total, LocalDateTime submittedDate, String reasonForRejection) {
 		super();
 		this.id = id;
-		this.userID = userID;
 		this.description = description;
 		this.justification = justification;
 		this.dateNeeded = dateNeeded;
@@ -61,13 +59,6 @@ public class Request {
 		this.user = user;
 	}
 
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
 
 	public String getDescription() {
 		return description;
