@@ -7,11 +7,10 @@ import javax.persistence.*;
 public class Vendor {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
+	private int  id;
 	@ManyToOne
 	@JoinColumn(name = "ProductId")
 	private Product product;
-	private int  id;
 	private String code;
 	private String name;
 	private String streetAddress;
