@@ -12,7 +12,7 @@ public class Request {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name = "UserId")
+	@JoinColumn(name = "UserID")
 	private User user;
 	private String description;
 	private String justification;

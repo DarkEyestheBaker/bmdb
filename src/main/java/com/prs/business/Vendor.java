@@ -8,9 +8,6 @@ public class Vendor {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int  id;
-	@ManyToOne
-	@JoinColumn(name = "ProductId")
-	private Product product;
 	private String code;
 	private String name;
 	private String streetAddress;
@@ -27,7 +24,6 @@ super();
 public Vendor(Product product, int id, String code, String name, String streetAddress, String city, String state,
 		String zipCode, String phoneNumber, String email) {
 	super();
-	this.product = product;
 	this.id = id;
 	this.code = code;
 	this.name = name;
@@ -37,14 +33,6 @@ public Vendor(Product product, int id, String code, String name, String streetAd
 	this.zipCode = zipCode;
 	this.phoneNumber = phoneNumber;
 	this.email = email;
-}
-
-public Product getProduct() {
-	return product;
-}
-
-public void setProduct(Product product) {
-	this.product = product;
 }
 
 public int getId() {
