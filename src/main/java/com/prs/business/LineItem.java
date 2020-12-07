@@ -10,44 +10,46 @@ import javax.persistence.*;
 public class LineItem {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	private int requestID;
-	private int productID;
+private int id;
+@ManyToOne
+@JoinColumn(name = "RequestID")
+private Request request;
+@ManyToOne
+@JoinColumn(name = "ProductID")
+	private Product product;
 	private int quantity;
-
 	private LineItem() {
 		super();
 }
-public LineItem(int id, int requestID, int productID, int quantity) {
-	super();
-	this.requestID = id;
-	this.requestID = requestID;
-	this.productID = productID;
-	this.quantity = quantity;
-}
-public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
-public int getRequestId() {
-	return requestID;
-}
-public void setRequestId(int requestId) {
-	this.requestID = requestId;
-}
-public int getProductId() {
-	return productID;
-}
-public void setProductId(int productId) {
-	this.productID = productId;
-}
-public int getQuantity() {
-	return quantity;
-}
-public void setQuantity(int quantity) {
-	this.quantity = quantity;
-}
-
+	public LineItem(int id, Request request, Product product, int quantity) {
+		super();
+		this.id = id;
+		this.request = request;
+		this.product = product;
+		this.quantity = quantity;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Request getRequest() {
+		return request;
+	}
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 }
