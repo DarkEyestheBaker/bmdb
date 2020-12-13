@@ -6,6 +6,7 @@ import java.util.*;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,38 +37,38 @@ public class LineItemController {
 	 */
 	@Autowired   			//Wires database to your controller
 	private LineItemRepo lineItemRepo;
+	@Autowired
+	private RequestRepo requestRepo;
 	
 // GET ALL LineItems
-@GetMapping("/")
+@GetMapping("/line-items")
 public List<LineItem>getAllLineItems() {
 	return lineItemRepo.findAll();
 }
 	
 	//GET LineItem by ID
-	@GetMapping("/{id}")
+	@GetMapping("/line-items/{id}")
 	public Optional<LineItem>getbyId(@PathVariable int id) {
 				return lineItemRepo.findById(id);
 	}
 	
 	//ADD LineItem and recalculate total
-	@PostMapping("/")
+	@PostMapping("/line-items")
 	public LineItem addLineItem(@RequestBody LineItem li) {
-		li = lineItemRepo.save (li);
+		li = lineItemRepo.save(li);
 		recalculateTotal(li);
 		return li;
 	}
-	private void recalculateTotal(LineItem li) {
-		
-	}
+	
 
 	// PUT (update) a LineItem and recalculate
-	@PutMapping("/")
+	@PutMapping("/line-items")
 	public LineItem updateLineItem(@RequestBody LineItem li) {
 		li = lineItemRepo.save(li);
 		return li;
 	}
 	// DELETE LineItem by ID and recalculate
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/line-items{id}")
 	public LineItem deleteLineItem(@PathVariable int id) {
 		Optional<LineItem> li = lineItemRepo.findById(id);
 			if (li.isPresent()) {
@@ -77,5 +78,19 @@ public List<LineItem>getAllLineItems() {
 }
 			return li.get();
 }
+	//Recalculate total
+	public void recalculateTotal(LineItem li) {
+		List<LineItem> lineItems = lineItemRepo.findByRequestId(li.getRequest().getId());
+		
+		double total = 0.0;
+		for(LineItem lineItem: lineItems) {
+			Product p = lineItem.getProduct();
+			total +=(p.getPrice()* lineItem.getQuantity());
+		}
+		Request request = li.getRequest();
+		request.setTotal(total);
+		requestRepo.save(request);
+	}
 }
+
 

@@ -6,10 +6,11 @@ import java.util.*;
 
 import javax.persistence.*;
 
+
 @Entity
 public class Request {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "UserID")
@@ -22,11 +23,11 @@ public class Request {
 	private double total;
 	private LocalDateTime submittedDate;
 	private String reasonForRejection;
-	
+
 	public Request() {
 		status = "new";
 		submittedDate = java.time.LocalDateTime.now();
-		
+
 	}
 
 	public Request(int id, int userID, String description, String justification, LocalDate dateNeeded,
@@ -58,7 +59,6 @@ public class Request {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 	public String getDescription() {
 		return description;
@@ -125,4 +125,3 @@ public class Request {
 	}
 
 }
-	

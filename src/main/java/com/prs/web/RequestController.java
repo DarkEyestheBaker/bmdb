@@ -20,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.prs.business.*;
 import com.prs.db.*;
 
-
 @CrossOrigin // Security related
 @RestController // I am a Controller!
 @RequestMapping("/requests") // url search
@@ -36,6 +35,8 @@ public class RequestController {
 	 */
 	@Autowired // Wires database to your controller
 	private RequestRepo requestRepo;
+	@Autowired
+	private UserRepo userRepo;
 
 // GET ALL Requests
 	@GetMapping("/")
@@ -46,15 +47,15 @@ public class RequestController {
 	// GET Request by ID
 	@GetMapping("/{id}")
 	public Optional<Request> getRequestById(@PathVariable int id) {
-	
 		return requestRepo.findById(id);
 	}
 
 	// Review requests by ID
-	@GetMapping("/requests/review/{id}")
-	public List<Request> getRequestByIdAndStatus(@PathVariable int id) {
-		return  requestRepo.findAllById(id) ;
+	@GetMapping("/list-review/{userId}")
+	public List<Request> getRequestByUserAndStatus(@PathVariable int userId) {
+		return requestRepo.findByStatusAndUserNot("Review", userRepo.findById(userId).get());
 	}
+
 
 	// POST (Add) Request
 	@PostMapping("/")
@@ -92,8 +93,8 @@ public class RequestController {
 		return r.get();
 	}
 	// Auto-Approve under $50
-	@PutMapping("/review")
-			public Request setRequestsApproval(@RequestBody Request r) {
+	@PutMapping("/submit-review")
+			public Request submitForReview(@RequestBody Request r) {
 		if(r.getTotal() >= 50.00) {
 			r.setStatus("Review");
 		}else {
