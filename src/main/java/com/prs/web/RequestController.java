@@ -63,6 +63,7 @@ public class RequestController {
 		if (r != null) {
 			System.out.println("Request submitted successfully.");
 			System.out.println("Total price = " + r.getTotal());
+			r.setStatus("New");
 			return requestRepo.save(r);
 		} else {
 			System.out.println("No request submitted.");

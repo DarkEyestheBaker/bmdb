@@ -18,7 +18,8 @@ private Request request;
 @JoinColumn(name = "ProductID")
 	private Product product;
 	private int quantity;
-	private LineItem() {
+	
+	public LineItem() {
 		super();
 }
 	public LineItem(int id, Request request, Product product, int quantity) {
