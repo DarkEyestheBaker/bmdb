@@ -24,7 +24,7 @@ import com.prs.db.*;
 
 @CrossOrigin 									// Security related
 @RestController 								// I am a Controller!
-@RequestMapping("/lineitems") 	// url search
+@RequestMapping("/line-items") 	// url search
 
 public class LineItemController {
 	/*
@@ -41,19 +41,19 @@ public class LineItemController {
 	private RequestRepo requestRepo;
 	
 // GET ALL LineItems
-@GetMapping("/line-items")
+@GetMapping("/")
 public List<LineItem>getAllLineItems() {
 	return lineItemRepo.findAll();
 }
 	
 	//GET LineItem by ID
-	@GetMapping("/line-items/{id}")
+	@GetMapping("/{id}")
 	public Optional<LineItem>getbyId(@PathVariable int id) {
 				return lineItemRepo.findById(id);
 	}
 	
 	//ADD LineItem and recalculate total
-	@PostMapping("/line-items")
+	@PostMapping("/")
 	public LineItem addLineItem(@RequestBody LineItem li) {
 		li = lineItemRepo.save(li);
 		recalculateTotal(li);
@@ -62,13 +62,13 @@ public List<LineItem>getAllLineItems() {
 	
 
 	// PUT (update) a LineItem and recalculate
-	@PutMapping("/line-items")
+	@PutMapping("/")
 	public LineItem updateLineItem(@RequestBody LineItem li) {
 		li = lineItemRepo.save(li);
 		return li;
 	}
 	// DELETE LineItem by ID and recalculate
-	@DeleteMapping("/line-items{id}")
+	@DeleteMapping("/{id}")
 	public LineItem deleteLineItem(@PathVariable int id) {
 		Optional<LineItem> li = lineItemRepo.findById(id);
 			if (li.isPresent()) {
