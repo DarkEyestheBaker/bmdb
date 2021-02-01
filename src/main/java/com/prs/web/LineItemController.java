@@ -78,6 +78,12 @@ public List<LineItem>getAllLineItems() {
 }
 			return li.get();
 }
+	// Get all LineItems by Request
+	@GetMapping("/request-lines/{id}")
+	public List<LineItem> getAllByRequestID(@PathVariable int id) {
+		return lineItemRepo.findByRequestId(id);
+	}
+	
 	//Recalculate total
 	public void recalculateTotal(LineItem li) {
 		List<LineItem> lineItems = lineItemRepo.findByRequestId(li.getRequest().getId());
