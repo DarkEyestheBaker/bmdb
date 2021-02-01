@@ -59,7 +59,6 @@ public List<LineItem>getAllLineItems() {
 		recalculateTotal(li);
 		return li;
 	}
-	
 
 	// PUT (update) a LineItem and recalculate
 	@PutMapping("/")
